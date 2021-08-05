@@ -26,7 +26,11 @@ app.use(cors());
 app.use(xss());
 app.use(rateLimit({ windowMs: 60 * 1000, max: 60 }));
 
-app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+app.get("/", (req, res) => {
+  res.send('<a href="/swagger">to swagger ui</a>');
+});
+
+app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 
 app.use("/api/auth", auth_router);
 app.use("/api/jobs", authenticateUser, jobs_router);
