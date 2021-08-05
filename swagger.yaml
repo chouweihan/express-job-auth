@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: express-job-auth
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://express-job-auth.herokuapp.com/api
+    variables: {}
+paths:
+  /jobs:
+    get:
+      tags:
+        - Jobs
+      summary: get jobs
+      operationId: getjobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+        - Jobs
+      summary: create jobs
+      operationId: createjobs
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createjobsrequest"
+            example:
+              company: honey
+              position: marketing
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: The Job ID
+    get:
+      tags:
+        - Jobs
+      summary: get single job
+      operationId: getsinglejob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    patch:
+      tags:
+        - Jobs
+      summary: update job
+      operationId: updatejob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/updatejobrequest"
+            example:
+              company: marines
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+        - Jobs
+      summary: delete job
+      operationId: deletejob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+  /auth:
+    get:
+      tags:
+        - Auth
+      summary: get users
+      operationId: getusers
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: register user
+      operationId: registeruser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/registeruserrequest"
+            example:
+              name: wei
+              email: wei@email.com
+              password: "12345678"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginrequest"
+            example:
+              email: wei@email.com
+              password: "12345678"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+components:
+  schemas:
+    registeruserrequest:
+      title: registeruserrequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: wei
+        email: wei@email.com
+        password: "12345678"
+    loginrequest:
+      title: loginrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: wei@email.com
+        password: "12345678"
+    createjobsrequest:
+      title: createjobsrequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: honey
+        position: marketing
+    updatejobrequest:
+      title: updatejobrequest
+      required:
+        - company
+      type: object
+      properties:
+        company:
+          type: string
+      example:
+        company: marines
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Auth
+    description: ""
+  - name: Jobs
+    description: ""
